@@ -1,0 +1,8 @@
+{% extends 'maintemplate.html' %}
+
+{% block onevideo %}
+    <iframe width="853" height="480" src={{ video.video_url }} frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    {% for com in comments %}
+    <h1>{{ com.comment_text }}</h1>
+    {% endfor %}
+{% endblock %}

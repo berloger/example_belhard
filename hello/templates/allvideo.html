@@ -1,0 +1,33 @@
+{% extends 'maintemplate.html' %}
+{% load staticfiles %}
+
+
+{% block allvideo %}
+        {% for video in videos %}
+        <a href="/onevideo/{{ video.id }}"><h1>{{ video.video_name }}</h1></a>
+        <iframe width="853" height="480" src={{ video.video_url }} frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            {% for com in comments %}
+                {% if com.comment_video_id == video.id %}
+                    <h1>{{ com.comment_text }}</h1>
+                    <img src="{% static 'like.png' %}" width="3%">
+                    <h4>Have likes: {{ com.comment_like }}</h4>
+                    <h4>user {{ com.comment_user }}</h4>
+                {% endif %}
+            {% endfor %}
+        <form action="/hello/addcomment/{{ video.id }}" method="GET">
+            <label for="comment">input comment</label><br>
+            <textarea class="form-control" rows="5"name="comment" id="comment" type="text" placeholder="input the text" rows="5" cols="100"></textarea>
+            <button type="submit" class="btn btn-danger">Submit</button>
+        </form><br><br>
+        {% endfor %}
+
+
+        <form action="/hello/addvideo/" method="GET">
+            <label for="name">Video name</label>
+            <input name="name" id="name" type="text" placeholder="enter the name for video">
+
+            <label for="url">URL</label>
+            <input name="url" id="url" type="url" placeholder="enter the url video">
+            <input type="submit" value="submit">
+        </form>
+{% endblock %}
